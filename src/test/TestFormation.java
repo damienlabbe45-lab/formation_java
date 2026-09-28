@@ -1,6 +1,11 @@
+package test;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import dao.AppFormation;
+import models.Formation;
+
 import java.sql.Connection;
 
 
@@ -14,8 +19,8 @@ public class TestFormation {
 	 * @param conn la connexion à la base de donnée
 	 */
 	public static void testRequest(Connection conn){
-        
-		AppFormation.fileRequest(conn);
+        AppFormation formation = new AppFormation(conn);
+		formation.fileRequest();
         AppFormation.request(conn, "INSERT INTO T_Articles ( Description, Brand, UnitaryPrice ) VALUES ( ? ,? ,?)",
         "disque dur externe 890 To", "SATA", 34.0);
         
