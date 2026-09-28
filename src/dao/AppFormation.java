@@ -1,3 +1,4 @@
+package dao;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,12 +9,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import models.Formation;
+
 /**
  * Classe principale gérant les opérations sur la base de données pour les articles du magasin.
  */
 public class AppFormation {
+    private Connection conn;
 
-	/**
+    
+
+
+	public AppFormation(Connection conn) {
+        this.conn = conn;
+
+    }
+
+    /**
      * Exécute une requête SQL de sélection et retourne le jeu de résultats.
      *
      * @param conn la connexion active à la base de données
@@ -140,8 +152,8 @@ public class AppFormation {
      *
      * @param conn la connexion active à la base de données
      */
-    public static void fileRequest(Connection conn) {
-        try (Statement stmt = conn.createStatement()) {
+    public void fileRequest() {
+        try (Statement stmt = this.conn.createStatement()) {
             String sql = file();
             stmt.execute(sql);
         } catch (SQLException e) {
