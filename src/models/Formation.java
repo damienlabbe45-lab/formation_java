@@ -1,3 +1,4 @@
+package models;
 public class Formation {
     private String description;
     private String brand;
@@ -5,11 +6,11 @@ public class Formation {
 
 
     /**
-     * Constructeur de la classe Article.
+     * Constructeur de la classe Formation.
      *
-     * @param description la description de l'article
+     * @param description la description de la formation
      * @param brand       la marque de l'article
-     * @param price       le prix unitaire de l'article
+     * @param price       le prix unitaire de la formation
      */
     public Formation(String description, String brand, Double price) {
         this.description = description;
@@ -18,9 +19,9 @@ public class Formation {
     }
 
 /**
-     * Retourne une représentation textuelle de l'article.
+     * Retourne une représentation textuelle de la formation.
      *
-     * @return une chaîne décrivant l'article
+     * @return une chaîne décrivant la formation
      */
     @Override    
     public String toString(){
@@ -28,7 +29,7 @@ public class Formation {
     }
 
     /**
-     * Retourne le prix unitaire de l'article.
+     * Retourne le prix de la formation.
      *
      * @return le prix sous forme de Double
      */
