@@ -1,9 +1,11 @@
 package test;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.App;
-
+import dao.AppFormation;
+import models.Formation;
 import java.sql.Connection;
 
 
@@ -18,6 +20,8 @@ public class TestFormation {
 	 */
 	public static void testRequest(Connection conn){
         App.fileRequest(conn);
+        ArrayList<Formation> results = AppFormation.requestReadAllFormation(conn);
+        for(Formation formation: results) System.out.println(formation);
     }
 	
     /**
@@ -29,8 +33,8 @@ public class TestFormation {
      */
 
         public static void main(String[] args) throws Exception {
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:8080/Formation?allowMultiQueries=true",
-                "Formation", "hvD!yuCrq2ZMZZi/")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Formation?allowMultiQueries=true",
+                "Formation", "K05lust-CQO6mogq")) {
             System.out.println("Connexion réussie !");
             testRequest(conn);
         } catch (SQLException e) {
