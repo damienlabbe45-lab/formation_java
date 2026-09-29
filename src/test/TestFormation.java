@@ -33,7 +33,7 @@ public class TestFormation {
      */
 
         public static void main(String[] args) throws Exception {
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Formation?allowMultiQueries=true",
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Formation?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true",
                 "Formation", "K05lust-CQO6mogq")) {
             System.out.println("Connexion réussie !");
             testRequest(conn);
