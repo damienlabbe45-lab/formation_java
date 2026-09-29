@@ -2,7 +2,25 @@
 -- - Reconstruction de la base de données                                     ---
 -- ------------------------------------------------------------------------------
 CREATE DATABASE IF NOT EXISTS Formation;
+
+
 USE Formation;
+
+DROP TABLE IF EXISTS Be;
+
+DROP TABLE IF EXISTS Order;
+
+DROP TABLE IF EXISTS Parcours;
+
+DROP TABLE IF EXISTS Client;
+
+DROP TABLE IF EXISTS User;
+
+DROP TABLE IF EXISTS Session;
+
+DROP TABLE IF EXISTS Booleen_formation;
+
+DROP TABLE IF EXISTS Formation;
 
 -- -----------------------------------------------------------------------------
 -- - Construction de la tables des formations                        ---
