@@ -52,7 +52,7 @@ INSERT INTO Formation ( name_formation, description) VALUES
 	("l'aléatoire en java", "explication de l'aléatoire en java"),
 	("les fichiers en python et java", "explications sur comment ouvrir les fichiers sur ces différents types de langage"),
 	("les gestionnaires d'erreurs vs les vérification en java et pyhon", 
-	"explique comment faire des gestionnaires d'erreurs ersonnalisés en python et en java"),
+	"explique comment faire des gestionnaires d'erreurs personnalisés en python et en java"),
 	("parcours python-java", "ensemble des parcours sur python et java"),
 	("git", "cours de débutant sur git"),
 	("git avancée", "cours avancés sur git"),
