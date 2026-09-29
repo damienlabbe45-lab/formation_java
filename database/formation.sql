@@ -175,7 +175,7 @@ CREATE TABLE Be(
 	session_id int NOT NULL,
 	price DECIMAL(6, 2),
 	end_date DATE NOT NULL,
-	beginning_date,
+	beginning_date DATE NOT NULL,
 	PRIMARY KEY(formation_id, is_dist, session_id),
 	ADD CONSTRAINT "fk_Be_formation_id_formation_id" FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
 	ADD CONSTRAINT "fk_Be_is_dist_is_dist" FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist),
