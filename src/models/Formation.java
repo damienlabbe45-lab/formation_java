@@ -39,7 +39,7 @@ public class Formation {
     @Override    
     public String toString(){
         String message = "La fomation " + nameFormation + " commence le " + beginningDate + " et finit le " + endDate + ". Elle est ";
-        if(isDist)  message = message + "en distanciel"; else message = message + " en présentielle" ;
+        if(isDist)  message = message + "en distanciel"; else message = message + "en présentielle" ;
         return message + ". " + description + "\n";
         
     }
