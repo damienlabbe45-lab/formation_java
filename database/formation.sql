@@ -8,7 +8,7 @@ USE Formation;
 
 DROP TABLE IF EXISTS Be;
 
-DROP TABLE IF EXISTS Order;
+DROP TABLE IF EXISTS Order_;
 
 DROP TABLE IF EXISTS Parcours;
 
@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS Formation;
 CREATE TABLE Formation (
 	formation_id			int		PRIMARY KEY AUTO_INCREMENT,
 	description			varchar(350)	NOT NULL,
-	name_formation      varchar(50) NOT NULL UNIQUE
+	name_formation      varchar(90) NOT NULL UNIQUE
 ) ENGINE = InnoDB;
 
 INSERT INTO Formation ( name_formation, description) VALUES 
@@ -41,8 +41,8 @@ INSERT INTO Formation ( name_formation, description) VALUES
     ( 'SQLite', 'cours sur sqlite'),
     ( 'PosgSQL', 'cours sur PosgrSQL'),
     ( 'IBM DB2', 'cours sur IBM DB2'),
-	('parcours sql et nosql', "ensemble des cours sur les bases de données")
-    ( 'Programmation avancée python', 'Porgammation orientée objet en python, utilisation des mixins'),
+	('parcours sql et nosql', "ensemble des cours sur les bases de données"),
+    ( 'Programmation avancée python', 'Progammation orientée objet en python, utilisation des mixins'),
     ( 'Proggrammation orientée Java', 'cours en java avancée'),
     ( 'Les structures de données', 'cours sur les structures de données les plus courantes en proggrammation'),
 	("Utilisation des threads en python", "utilisation des threads en python"),
@@ -63,7 +63,7 @@ INSERT INTO Formation ( name_formation, description) VALUES
 -- -----------------------------------------------------------------------------
 
 CREATE TABLE Booleen_formation (
-	is_dist boolean PRIMARY KEY
+	is_dist boolean PRIMARY KEY 
 ) ENGINE = InnoDB;
 
 INSERT INTO Booleen_formation (is_dist) VALUES
@@ -77,11 +77,10 @@ INSERT INTO Booleen_formation (is_dist) VALUES
 
 
 CREATE TABLE Session (
-	session_id int PRIMARY KEY
+	session_id int PRIMARY KEY AUTO_INCREMENT
 ) ENGINE = InnoDB;
 
-INSERT INTO Sesssion() VALUES 
-(),
+INSERT INTO Session() VALUES 
 (),
 (),
 ();
@@ -93,11 +92,11 @@ INSERT INTO Sesssion() VALUES
 
 
 CREATE TABLE User(
-	user_id INT PRIMARY KEY,
+	user_id INT PRIMARY KEY AUTO_INCREMENT,
 	addressemail VARCHAR(50) NOT NULL UNIQUE,
-	password VARCHAR(50) NOT NULL
-	is_director boolean  NOT NULL,
-)
+	password VARCHAR(60) NOT NULL,
+	is_director boolean  NOT NULL
+)ENGINE = InnoDB;
 
 
 INSERT INTO User(addressemail, password, is_director) VALUES
@@ -111,11 +110,11 @@ INSERT INTO User(addressemail, password, is_director) VALUES
 -- -----------------------------------------------------------------------------
 
 CREATE TABLE Client(
-	client_id PRIMARY KEY,
+	client_id INT PRIMARY KEY,
 	name_client VARCHAR(50) NOT NULL,
 	firstname_client VARCHAR(50) NOT NULL,
 	phonenumber VARCHAR(18) DEFAULT 0,
-	ADD CONSTRAINT "fk_client_id_user" FOREIGN KEY(client_id) REFERENCES User(user_id)
+	CONSTRAINT fk_client_id_user FOREIGN KEY(client_id) REFERENCES User(user_id)
 ) ENGINE = InnoDB;
 
 
@@ -131,8 +130,8 @@ CREATE TABLE Parcours(
 	formation_incluant int NOT NULL, 
 	formation_incluse int NOT NULL,
 	PRIMARY KEY(formation_incluant, formation_incluse),
-	ADD CONSTRAINT "fk_formation_incluant_formation_id" FOREIGN KEY(formation_incluant) REFERENCES Formation(formation_id),
-	ADD CONSTRAINT "fk_formation_incuse_formation_id" FOREIGN KEY(formation_incluse) REFERENCES Formation(formation_id)
+	CONSTRAINT fk_formation_incluant_formation_id FOREIGN KEY(formation_incluant) REFERENCES Formation(formation_id),
+	CONSTRAINT fk_formation_incuse_formation_id FOREIGN KEY(formation_incluse) REFERENCES Formation(formation_id)
 	) ENGINE = InnoDB;
 
 
@@ -147,24 +146,24 @@ INSERT INTO Parcours(formation_incluant, formation_incluse) VALUES
 
 
 	-- -----------------------------------------------------------------------------
--- - Construction de la table Order                ---
+-- - Construction de la table Order_                ---
 -- -----------------------------------------------------------------------------
-CREATE TABLE Order(
+CREATE TABLE Order_(
 	formation_id int NOT NULL, 
 	client_id int NOT NULL,
 	date_order DATE NOT NULL,
 	PRIMARY KEY(formation_id, client_id),
-	ADD CONSTRAINT "fk_Parcours_formation_id_formation_id" FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
-	ADD CONSTRAINT "fk_Parcours_client_id_client_id" FOREIGN KEY(client_id) REFERENCES Client(client_id)
+	CONSTRAINT fk_Parcours_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
+	CONSTRAINT fk_Parcours_client_id_client_id FOREIGN KEY(client_id) REFERENCES Client(client_id)
 	) ENGINE = InnoDB;
 
 
-INSERT INTO Order(formation_id, client_id, date_order)  VALUES
+INSERT INTO Order_(formation_id, client_id, date_order)  VALUES
 	(1, 3, CURRENT_DATE),
 	(10, 1, CURRENT_DATE),
 	(10, 2, CURRENT_DATE),
-	(11, 1, CURRENT_DATE);
-	(1, 1, '2025-12-01')
+	(11, 1, CURRENT_DATE),
+	(1, 1, '2025-12-01');
 
 	-- -----------------------------------------------------------------------------
 -- - Construction de la table Be                ---
@@ -177,25 +176,25 @@ CREATE TABLE Be(
 	end_date DATE NOT NULL,
 	beginning_date DATE NOT NULL,
 	PRIMARY KEY(formation_id, is_dist, session_id),
-	ADD CONSTRAINT "fk_Be_formation_id_formation_id" FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
-	ADD CONSTRAINT "fk_Be_is_dist_is_dist" FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist),
-	ADD CONSTRAINT "fk_Be_session_id_session_id" FOREIGN KEY(session_id) REFERENCES session(session_id)
+	CONSTRAINT fk_Be_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
+	CONSTRAINT fk_Be_is_dist_is_dist FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist),
+	CONSTRAINT fk_Be_session_id_session_id FOREIGN KEY(session_id) REFERENCES session(session_id)
 	) ENGINE = InnoDB;
 
 
 INSERT INTO Be(formation_id, is_dist, session_id, price, end_date, beginning_date) VALUES
-	(1, false, 1, 45.67, '2015-08-22', '2015-07- 15'),
-	(1, true, 2, 40.67, '2025-08-22', '2025-07- 25'),
-	(1, false, 2, 45.67, '2025-08-22', '2025-07- 25'),
-	(1, true, 3, 50.67, '2026-08-22', '2026-07- 25'),
-	(1, false, 3, 57.67, '2026-08-22', '2026-07- 25'),
+	(1, false, 1, 45.67, '2015-08-22', '2015-07-15'),
+	(1, true, 2, 40.67, '2025-08-22', '2025-07-25'),
+	(1, false, 2, 45.67, '2025-08-22', '2025-07-25'),
+	(1, true, 3, 50.67, '2026-08-22', '2026-07-25'),
+	(1, false, 3, 57.67, '2026-08-22', '2026-07-25'),
 	(10, false, 3, 123.09, '2027-12-20', '2026-10-08'),
 	(10, false, 2, 167.09, '2026-12-20', '2025-10-08'),
 	(10, false, 1, 189.09, '2025-12-20', '2024-10-08'),
-	(2, true, 1 34.86,'2026-11-07', CURRENT_DATE),
-	(3, true, 1 39.86,'2026-11-07', CURRENT_DATE),
-	(4, false, 1 64.86,'2026-11-07', CURRENT_DATE),
-	(5, true, 1 14.86,'2026-11-07', CURRENT_DATE),
+	(2, true, 1, 34.86,'2026-11-07', CURRENT_DATE),
+	(3, true, 1, 39.86,'2026-11-07', CURRENT_DATE),
+	(4, false, 1, 64.86,'2026-11-07', CURRENT_DATE),
+	(5, true, 1, 14.86,'2026-11-07', CURRENT_DATE),
 	(6, true, 1 ,389.66,'2026-11-07', CURRENT_DATE),
 	(7, true, 1 ,289.66,'2026-11-07', CURRENT_DATE),
 	(8, false, 1 ,12.66,'2026-11-07', CURRENT_DATE),
