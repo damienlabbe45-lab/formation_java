@@ -22,19 +22,43 @@ public class AppFormation{
      * @return la liste des objets Formation instanciés
      */
     public static ArrayList<Formation> requestReadFormation(Connection conn, String nameFormation,
-        String description, boolean isDist, Date endDate, Date beginningDate, Double price
+        String description, boolean isDist, Date endDate, Date beginningDate, Double price, int count
     ){
         ArrayList<Formation> results = new ArrayList<Formation>();
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
-        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE is_dist = ? OR description LIKE ? OR name_formation LIKE ? ";
-        sql = sql + "OR price <= ? OR end_date == ? OR beginning_date == ?";
+        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE";
+        sql = sql + "";
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
-            request.setString(2, "%" + description);
-            request.setString(3, "%" + nameFormation);
-            request.setDouble(4, price);
-			request.setBoolean(1, isDist);
-            request.setDate(5, endDate);
-            request.setDate(6, beginningDate);
+            sql = sql + " is_dist = ?";
+            request.setBoolean(count, isDist);
+            count++;
+            if(!description.equals("")){
+                sql = sql + " OR description LIKE ?";
+                request.setString(count, "%" + description);
+                count++;
+            }
+            if(!nameFormation.equals("")){
+                sql = sql + " OR name_formation LIKE ?";
+                request.setString(count, "%" + nameFormation);
+                count++;
+            }
+            if(price != null){
+                sql = sql + " OR price <= ?";
+                request.setDouble(count, price);
+                count++;
+            }
+            if(endDate != null){
+                sql = sql + " OR end_date == ?";
+                request.setDate(count, endDate);
+                count++;
+            }
+            if(beginningDate != null){
+                sql =sql + " OR beginning_date == ?";
+                request.setDate(count, beginningDate);
+                count++;
+            }
+            
+            
             ResultSet result = request.executeQuery();
 
             if (result != null) 
