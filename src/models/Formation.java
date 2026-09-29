@@ -1,22 +1,35 @@
 package models;
+
+import java.util.Date;
+
 public class Formation {
     private String description;
-    private String brand;
     private Double price;
+    private boolean isDist;
+    private Date endDate;
+    private Date beginningDate;
+    private String nameFormation;
 
 
     /**
      * Constructeur de la classe Formation.
      *
-     * @param description la description de la formation
-     * @param brand       la marque de l'article
-     * @param price       le prix unitaire de la formation
+     * @param description   la description de la formation
+     * @param price         le prix unitaire de la formation
+     * @param isDist        si c'est en présentiel ou distanciel
+     * @param endDate       la date de fin de la formation
+     * @param beginningDate la date de début de la formation
+     * @param nameFormation le nom de la formation
      */
-    public Formation(String description, String brand, Double price) {
-        this.description = description;
-        this.brand = brand;
-        this.price = price;
-    }
+   public Formation(String description, Double price, boolean isDist, Date endDate, Date beginningDate,
+        String nameFormation) {
+    this.description = description;
+    this.price = price;
+    this.isDist = isDist;
+    this.endDate = endDate;
+    this.beginningDate = beginningDate;
+    this.nameFormation = nameFormation;
+}
 
 /**
      * Retourne une représentation textuelle de la formation.
@@ -25,8 +38,13 @@ public class Formation {
      */
     @Override    
     public String toString(){
-        return "l'article " + description + " a comme marque " + brand + " et coûte " + price + " euros.";
+        String message = "La fomation " + nameFormation + " commence le " + beginningDate + " et finit le " + endDate + ". Elle est ";
+        if(isDist)  message = message + "en distanciel"; else message = message + " en présentielle" ;
+        return message + ". " + description;
+        
     }
+
+    
 
     /**
      * Retourne le prix de la formation.
