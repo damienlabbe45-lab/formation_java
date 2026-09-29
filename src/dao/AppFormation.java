@@ -9,7 +9,7 @@ import models.Formation;
 
 public class AppFormation{
     	/**
-     * Exécute une requête SQL et instancie une liste d'objets Article à partir des données.
+     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données.
      *
      * @param conn          la connexion active à la base de données
      * @param nameFormation le nom de la formation
@@ -44,7 +44,7 @@ public class AppFormation{
             else
             {
                 System.out.println("il y a aucun résultat. \n");
-    
+                results = AppFormation.requestReadAllFormation(conn);
             }
         } catch (SQLException e) {
             System.err.println(e);
@@ -52,6 +52,26 @@ public class AppFormation{
         System.out.println("\n");
         return  results;
 
+    }
+    /**
+     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données.
+     *
+     * @param conn la connexion active à la base de données
+      * @return la liste des objets Formation instanciés
+     */
+    public static ArrayList<Formation> requestReadAllFormation(Connection conn){
+        ArrayList<Formation> results = new ArrayList<Formation>();
+        String sql = "SELECT description, price, isDist, endDate, beginningDate, nameformation FROM Formation JOIN Be ";
+        sql = sql + " ON Formation.formation_id = Be.formation_id";
+        try (ResultSet result = conn.prepareStatement(sql).executeQuery();){
+           while(result.next()) results.add(new Formation(result.getNString(1), 
+                    result.getDouble(2), result.getBoolean(3), 
+                    result.getDate(4), result.getDate(5), result.getNString(6)));
+        }
+        catch (SQLException e) {
+            System.err.println(e);
+        }
+       return results;
     }
 		
 }
