@@ -25,9 +25,9 @@ public class AppFormation{
         String description, boolean isDist, Date endDate, Date beginningDate, Double price
     ){
         ArrayList<Formation> results = new ArrayList<Formation>();
-        String sql = "SELECT description, price, isDist, endDate, beginningDate, nameformation FROM Formation JOIN Be ";
-        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE isDist = ? OR description LIKE ? OR nameformation LIKE ? ";
-        sql = sql + "OR price <= ? OR endDate == ? OR beginningDate == ?";
+        String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
+        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE is_dist = ? OR description LIKE ? OR name_formation LIKE ? ";
+        sql = sql + "OR price <= ? OR end_date == ? OR beginning_date == ?";
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             request.setString(2, "%" + description);
             request.setString(3, "%" + nameFormation);
@@ -62,7 +62,7 @@ public class AppFormation{
      */
     public static ArrayList<Formation> requestReadAllFormation(Connection conn){
         ArrayList<Formation> results = new ArrayList<Formation>();
-        String sql = "SELECT description, price, isDist, endDate, beginningDate, nameformation FROM Formation JOIN Be ";
+        String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id";
         try (ResultSet result = conn.prepareStatement(sql).executeQuery();){
            while(result.next()) results.add(new Formation(result.getNString(1), 
