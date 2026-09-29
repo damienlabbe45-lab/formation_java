@@ -55,7 +55,7 @@ public class TestFormation {
      */
 
         public static void main(String[] args) throws Exception {
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Formation?allowMultiQueries=true",
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:8080/Formation?allowMultiQueries=true",
                 "Formation", "hvD!yuCrq2ZMZZi/")) {
             System.out.println("Connexion réussie !");
             testRequest(conn);
