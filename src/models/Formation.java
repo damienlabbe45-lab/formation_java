@@ -1,3 +1,4 @@
+package models;
 import java.sql.Date;
 
 public class Formation {
@@ -7,7 +8,7 @@ public class Formation {
     private Date endDate;
     private Date beginningDate;
     private String nameFormation;
-    
+
 
     /**
      * Constructeur de la classe Formation.
