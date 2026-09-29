@@ -1,6 +1,4 @@
-package models;
-
-import java.util.Date;
+import java.sql.Date;
 
 public class Formation {
     private String description;
@@ -9,7 +7,7 @@ public class Formation {
     private Date endDate;
     private Date beginningDate;
     private String nameFormation;
-
+    
 
     /**
      * Constructeur de la classe Formation.
