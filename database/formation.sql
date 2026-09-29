@@ -1,7 +1,7 @@
 -- ------------------------------------------------------------------------------
 -- - Reconstruction de la base de données                                     ---
 -- ------------------------------------------------------------------------------
-CREATE DATABASE IF NOT EXISTS Formation;
+CREATE DATABASE IF NOT EXISTS Formation  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 USE Formation;
@@ -29,7 +29,7 @@ CREATE TABLE Formation (
 	formation_id			int		PRIMARY KEY AUTO_INCREMENT,
 	description			varchar(350)	NOT NULL,
 	name_formation      varchar(90) NOT NULL UNIQUE
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO Formation ( name_formation, description) VALUES 
     ( 'Java', 'Cours de débutant pour java'),
@@ -64,7 +64,7 @@ INSERT INTO Formation ( name_formation, description) VALUES
 
 CREATE TABLE Booleen_formation (
 	is_dist boolean PRIMARY KEY 
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO Booleen_formation (is_dist) VALUES
 (true),
@@ -78,7 +78,7 @@ INSERT INTO Booleen_formation (is_dist) VALUES
 
 CREATE TABLE Session (
 	session_id int PRIMARY KEY AUTO_INCREMENT
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO Session() VALUES 
 (),
@@ -96,7 +96,7 @@ CREATE TABLE User(
 	addressemail VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(60) NOT NULL,
 	is_director boolean  NOT NULL
-)ENGINE = InnoDB;
+)ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO User(addressemail, password, is_director) VALUES
@@ -115,7 +115,7 @@ CREATE TABLE Client(
 	firstname_client VARCHAR(50) NOT NULL,
 	phonenumber VARCHAR(18) DEFAULT 0,
 	CONSTRAINT fk_client_id_user FOREIGN KEY(client_id) REFERENCES User(user_id)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO Client(client_id, name_client, firstname_client, phonenumber) VALUES
@@ -132,7 +132,7 @@ CREATE TABLE Parcours(
 	PRIMARY KEY(formation_incluant, formation_incluse),
 	CONSTRAINT fk_formation_incluant_formation_id FOREIGN KEY(formation_incluant) REFERENCES Formation(formation_id),
 	CONSTRAINT fk_formation_incuse_formation_id FOREIGN KEY(formation_incluse) REFERENCES Formation(formation_id)
-	) ENGINE = InnoDB;
+	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO Parcours(formation_incluant, formation_incluse) VALUES
@@ -155,7 +155,7 @@ CREATE TABLE Order_(
 	PRIMARY KEY(formation_id, client_id),
 	CONSTRAINT fk_Parcours_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
 	CONSTRAINT fk_Parcours_client_id_client_id FOREIGN KEY(client_id) REFERENCES Client(client_id)
-	) ENGINE = InnoDB;
+	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO Order_(formation_id, client_id, date_order)  VALUES
@@ -179,7 +179,7 @@ CREATE TABLE Be(
 	CONSTRAINT fk_Be_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
 	CONSTRAINT fk_Be_is_dist_is_dist FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist),
 	CONSTRAINT fk_Be_session_id_session_id FOREIGN KEY(session_id) REFERENCES session(session_id)
-	) ENGINE = InnoDB;
+	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO Be(formation_id, is_dist, session_id, price, end_date, beginning_date) VALUES
