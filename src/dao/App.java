@@ -1,5 +1,6 @@
 package dao;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class App {
      */
     private static String file() {
         try {
-            return new String(Files.readAllBytes(Paths.get("database/formation.sql")));
+            return String.join("\n", Files.readAllLines(Paths.get("database/formation.sql"),StandardCharsets.UTF_8));
         } catch (IOException e) {
             System.err.println(e);
             return "";
