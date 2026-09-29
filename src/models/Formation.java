@@ -1,4 +1,5 @@
 package models;
+
 import java.sql.Date;
 
 public class Formation {
@@ -39,7 +40,7 @@ public class Formation {
     public String toString(){
         String message = "La fomation " + nameFormation + " commence le " + beginningDate + " et finit le " + endDate + ". Elle est ";
         if(isDist)  message = message + "en distanciel"; else message = message + " en présentielle" ;
-        return message + ". " + description;
+        return message + ". " + description + "\n";
         
     }
 
