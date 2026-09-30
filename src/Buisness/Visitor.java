@@ -9,8 +9,15 @@ import java.sql.Date;
 import dao.AppFormation;
 import models.Formation;
 import utils.Utils;
+
+
 public class Visitor {
 
+        /**
+     *méthode pour afficher à l'utilisateur les formations sur la console et lui permettre de filtrer selon ses propres critères.
+     * @param input scanner instancié
+     * @param conn la connexion active à la base de données
+     */
     private static void readFormation(Scanner input, Connection conn){
         System.out.println("Voulez-vous filtrer sur le présentiel, le distanciel ou pas du tout?");
         String resultIsDist = Utils.input(input,new ArrayList <>(Arrays.asList("présentiel", "distanciel", "pas du tout")));
@@ -56,11 +63,21 @@ public class Visitor {
         for(Formation formation: results) System.out.println(formation);
     }
 
+    /**
+     *méthode pour afficher à l'utilisateur toutes les formations sur la console.
+     * @param conn la connexion active à la base de données
+     */
     private static void readAllFormation(Connection conn){
         ArrayList<Formation> results = AppFormation.requestReadAllFormation(conn);
         for(Formation formation: results) System.out.println(formation);
     }
 
+    /**
+     * méthode d'interface utilisateur pour appeler de façon plus simple les méthodes de la classe et de celles qui en hériteront.
+     * à faire surcharger obligatoirement si on veut rajouter ou dimunier des méthodes dans cette interface.
+     * @param input scanner instancié
+     * @param conn la connexion active à la base de données
+     */
     public static void interfaceVisitor(Scanner input, Connection conn){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères ";
         message = message + ", 3 quitter cette interface? choissisez en tapant le numéro";
