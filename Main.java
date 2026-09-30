@@ -14,6 +14,7 @@ public class Main {
             Visitor.interfaceVisitor(input, conn);
         } catch (SQLException e) {
             System.err.println("une erreur est survenue. \n");
+            /**il serait possible le println(e) par un envoi dans un fichier de log .log*/
             System.err.println(e);
         }
         input.close();
