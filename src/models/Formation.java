@@ -2,6 +2,10 @@ package models;
 
 import java.sql.Date;
 
+/**
+ * classe pour les formations.
+ * Formation
+ */
 public class Formation {
     private String description;
     private Double price;
