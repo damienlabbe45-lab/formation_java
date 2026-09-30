@@ -27,5 +27,13 @@ public class Client {
         return nameClient + " " + firstNameClient;
     }
 
+    public String getNameClient() {
+        return nameClient;
+    }
+
+    public String getFirstNameClient() {
+        return firstNameClient;
+    }
+
     
 }
