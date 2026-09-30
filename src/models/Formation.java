@@ -45,8 +45,6 @@ public class Formation {
         
     }
 
-    
-
     /**
      * Retourne le prix de la formation.
      *
