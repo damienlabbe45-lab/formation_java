@@ -35,6 +35,7 @@ public class AppClient {
      * elle a été obtenue par la méthode connected ci au dessus
      *
      * @param conn la connexion active à la base de données
+     * @param l'identifiant de l'utilisateur
      * 
      * @return la classe client de l'utilisateur
      */
@@ -52,4 +53,25 @@ public class AppClient {
         return client;
     }
     
+    /**
+     * Exécute une requête SQL et renvoie si c'est un utilisateur directeur ou juste un simple client avec un booleen
+     *
+     * @param conn la connexion active à la base de données
+     * @param l'identifiant de l'utilisateur
+     * 
+     * @return si c'est true, directeur , si c'est false, Client.
+     */
+    public static boolean isDirector(Connection conn, int identifiantClient){
+        boolean director = false;
+        String sql = "SELECT is_director FROM USER WHERE user_id = ?";
+        try (PreparedStatement request = conn.prepareStatement(sql)){
+            request.setInt(1, identifiantClient);
+            director = request.executeQuery()
+            .getBoolean(1);
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        return director;
+    }
 }
