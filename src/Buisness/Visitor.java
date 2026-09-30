@@ -6,8 +6,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.Date;
 
+import dao.AppClient;
 import dao.AppFormation;
 import dao.AppParcours;
+import models.Client;
 import models.Formation;
 import models.Parcours;
 import utils.Utils;
@@ -83,6 +85,22 @@ public class Visitor {
         for(Parcours parcours: results) System.out.println(parcours);
     }
 
+    private static boolean connected(Connection conn , Scanner input){
+        System.out.println("Veillez taper votre identifiant");
+        String addressemail = input.next();
+        System.out.println("Veillez taper votre mot de passe");
+        String password = input.next();
+        int identifiant = AppClient.connected(conn, addressemail, password);
+        if(identifiant < 0) {
+            System.out.println("votre adresse mail ou votre mot de passe ou les 2 ont été mal écrit");
+            return false;
+        }
+        Client client = AppClient.readClientConnected(conn, identifiant);
+        System.out.println("Bienvenue cher " + client);
+        return true;
+
+    }
+
     /**
      * méthode d'interface utilisateur pour appeler de façon plus simple les méthodes de la classe et de celles qui en hériteront.
      * à faire surcharger obligatoirement si on veut rajouter ou dimunier des méthodes dans cette interface.
@@ -91,13 +109,14 @@ public class Visitor {
      */
     public static void interfaceVisitor(Scanner input, Connection conn){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
-        message = message + ", 3 quitter cette interface, 4 voir tout les parcours? choissisez en tapant le numéro";
+        message = message + ", 3 quitter cette interface, 4 voir tout les parcours, 5 se connecter? choissisez en tapant le numéro";
         System.out.println(message);
         int number = Utils.inputNumber(input);
         while (number != 3) {
             if(number == 1)readAllFormation(conn);
             if(number == 2)readFormation(input, conn);
             if(number == 4) readAllParcours(conn);
+            if(number == 5 && connected(conn, input)) break;
             System.out.println(message);
             number = Utils.inputNumber(input);
             
