@@ -7,7 +7,9 @@ import java.util.Scanner;
 import java.sql.Date;
 
 import dao.AppFormation;
+import dao.AppParcours;
 import models.Formation;
+import models.Parcours;
 import utils.Utils;
 
 
@@ -73,19 +75,29 @@ public class Visitor {
     }
 
     /**
+     *méthode pour afficher à l'utilisateur touts les parcours sur la console.
+     * @param conn la connexion active à la base de données
+     */
+    private static void readAllParcours(Connection conn){
+        ArrayList<Parcours> results = AppParcours.requestReadAllParcours(conn);
+        for(Parcours parcours: results) System.out.println(parcours);
+    }
+
+    /**
      * méthode d'interface utilisateur pour appeler de façon plus simple les méthodes de la classe et de celles qui en hériteront.
      * à faire surcharger obligatoirement si on veut rajouter ou dimunier des méthodes dans cette interface.
      * @param input scanner instancié
      * @param conn la connexion active à la base de données
      */
     public static void interfaceVisitor(Scanner input, Connection conn){
-        String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères ";
-        message = message + ", 3 quitter cette interface? choissisez en tapant le numéro";
+        String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
+        message = message + ", 3 quitter cette interface, 4 voir tout les parcours? choissisez en tapant le numéro";
         System.out.println(message);
         int number = Utils.inputNumber(input);
         while (number != 3) {
             if(number == 1)readAllFormation(conn);
             if(number == 2)readFormation(input, conn);
+            if(number == 4) readAllParcours(conn);
             System.out.println(message);
             number = Utils.inputNumber(input);
             
