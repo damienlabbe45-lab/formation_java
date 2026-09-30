@@ -85,6 +85,11 @@ public class Visitor {
         for(Parcours parcours: results) System.out.println(parcours);
     }
 
+     /**
+     *méthode pour se connecter en tant que Client ou directeur et ne plus être un simple client.
+     * @param input scanner instancié
+     * @param conn la connexion active à la base de données
+     */
     private static boolean connected(Connection conn , Scanner input){
         System.out.println("Veillez taper votre identifiant");
         String addressemail = input.next();
