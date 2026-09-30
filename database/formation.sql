@@ -16,8 +16,6 @@ DROP TABLE IF EXISTS Client;
 
 DROP TABLE IF EXISTS User;
 
-DROP TABLE IF EXISTS Session;
-
 DROP TABLE IF EXISTS Booleen_formation;
 
 DROP TABLE IF EXISTS Formation;
@@ -69,21 +67,6 @@ CREATE TABLE Booleen_formation (
 INSERT INTO Booleen_formation (is_dist) VALUES
 (true),
 (false);
-
-
-	-- -----------------------------------------------------------------------------
--- - Construction de la tables de Session                       ---
--- -----------------------------------------------------------------------------
-
-
-CREATE TABLE Session (
-	session_id int PRIMARY KEY AUTO_INCREMENT
-) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO Session() VALUES 
-(),
-(),
-();
 
 
 	-- -----------------------------------------------------------------------------
@@ -177,8 +160,7 @@ CREATE TABLE Be(
 	beginning_date DATE NOT NULL,
 	PRIMARY KEY(formation_id, is_dist, session_id),
 	CONSTRAINT fk_Be_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
-	CONSTRAINT fk_Be_is_dist_is_dist FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist),
-	CONSTRAINT fk_Be_session_id_session_id FOREIGN KEY(session_id) REFERENCES session(session_id)
+	CONSTRAINT fk_Be_is_dist_is_dist FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist)
 	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
