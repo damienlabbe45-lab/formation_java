@@ -53,5 +53,11 @@ public class Formation {
     public Double toDouble(){
         return price;
     }
+
+    public String getNameFormation() {
+        return nameFormation;
+    }
+
+    
     
 }
