@@ -16,8 +16,6 @@ DROP TABLE IF EXISTS Client;
 
 DROP TABLE IF EXISTS User;
 
-DROP TABLE IF EXISTS Booleen_formation;
-
 DROP TABLE IF EXISTS Formation;
 
 -- -----------------------------------------------------------------------------
@@ -55,18 +53,6 @@ INSERT INTO Formation ( name_formation, description) VALUES
 	("git", "cours de débutant sur git"),
 	("git avancée", "cours avancés sur git"),
 	("parcours git", "l'ensemble des cours git");
-
-	-- -----------------------------------------------------------------------------
--- - Construction de la tables de booleen_formation                        ---
--- -----------------------------------------------------------------------------
-
-CREATE TABLE Booleen_formation (
-	is_dist boolean PRIMARY KEY 
-) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO Booleen_formation (is_dist) VALUES
-(true),
-(false);
 
 
 	-- -----------------------------------------------------------------------------
@@ -159,8 +145,7 @@ CREATE TABLE Be(
 	end_date DATE NOT NULL,
 	beginning_date DATE NOT NULL,
 	PRIMARY KEY(formation_id, is_dist, session_id),
-	CONSTRAINT fk_Be_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
-	CONSTRAINT fk_Be_is_dist_is_dist FOREIGN KEY(is_dist) REFERENCES Booleen_formation(is_dist)
+	CONSTRAINT fk_Be_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id)
 	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
