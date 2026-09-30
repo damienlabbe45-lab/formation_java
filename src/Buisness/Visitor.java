@@ -97,6 +97,12 @@ public class Visitor {
         }
         Client client = AppClient.readClientConnected(conn, identifiant);
         System.out.println("Bienvenue cher " + client);
+        if(AppClient.isDirector(conn, identifiant)){
+            Director.interfaceVisitor(input, conn, client);
+        }
+        else{
+            InterfaceClient.interfaceVisitor(input, conn, client);
+        }
         return true;
 
     }
