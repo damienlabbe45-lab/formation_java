@@ -11,7 +11,7 @@ import models.Formation;
 public class AppFormation{
 
 /**
-     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données.
+     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données filtrés de l'utilisateur.
      *
      * @param conn          la connexion active à la base de données
      * @param nameFormation le nom de la formation
@@ -82,7 +82,7 @@ public class AppFormation{
     }
 
     	/**
-     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données.
+     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données filtrés selon les critères de l'utilisateur.
      *
      * @param conn          la connexion active à la base de données
      * @param nameFormation le nom de la formation
@@ -151,7 +151,7 @@ public class AppFormation{
 
     }
     /**
-     * Exécute une requête SQL et instancie une liste d'objets Formation à partir des données.
+     * Exécute une requête SQL et instancie une liste d'objets Formation à partir de toutes les données.
      *
      * @param conn la connexion active à la base de données
       * @return la liste des objets Formation instanciés
