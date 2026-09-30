@@ -161,9 +161,15 @@ public class AppFormation{
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id";
         try (ResultSet result = conn.prepareStatement(sql).executeQuery();){
-           while(result.next()) results.add(new Formation(result.getNString(1), 
-                    result.getDouble(2), result.getBoolean(3), 
-                    result.getDate(4), result.getDate(5), result.getNString(6)));
+           while(result.next()) {
+             results.add(new Formation(result.getNString(1), 
+                    result.getDouble(2), 
+                    result.getBoolean(3), 
+                    result.getDate(4), 
+                    result.getDate(5), 
+                    result.getNString(6)));
+           }
+           
         }
         catch (SQLException e) {
             System.err.println(e);
