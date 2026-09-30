@@ -1,5 +1,34 @@
 package Buisness;
 
-public class Director extends  Client{
+import java.sql.Connection;
+import java.util.Scanner;
+
+import utils.Utils;
+import models.Client;
+
+public class Director extends  InterfaceClient{
+
+/**
+     * méthode d'interface utilisateur pour appeler de façon plus simple les méthodes de la classe et de celles qui en hériteront.
+     * à faire surcharger obligatoirement si on veut rajouter ou dimunier des méthodes dans cette interface.
+     * @param input scanner instancié
+     * @param conn la connexion active à la base de données
+     * @param client l'utilisateur en tant que client et directeur
+     */
+    public static void interfaceVisitor(Scanner input, Connection conn, Client client){
+        String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
+        message = message + ", 3 quitter cette interface, 4 voir tout les parcours? choissisez en tapant le numéro";
+        System.out.println(message);
+        int number = Utils.inputNumber(input);
+        while (number != 3) {
+            if(number == 1)readAllFormation(conn);
+            if(number == 2)readFormation(input, conn);
+            if(number == 4) readAllParcours(conn);
+            System.out.println(message);
+            number = Utils.inputNumber(input);
+            
+        }
+    
+    }
     
 }
