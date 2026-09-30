@@ -20,7 +20,7 @@ public class Visitor {
      * @param input scanner instancié
      * @param conn la connexion active à la base de données
      */
-    private static void readFormation(Scanner input, Connection conn){
+    protected static void readFormation(Scanner input, Connection conn){
         System.out.println("Voulez-vous filtrer sur le présentiel, le distanciel ou pas du tout?");
         String resultIsDist = Utils.input(input,new ArrayList <>(Arrays.asList("présentiel", "distanciel", "pas du tout")));
         String name = null;
@@ -69,7 +69,7 @@ public class Visitor {
      *méthode pour afficher à l'utilisateur toutes les formations sur la console.
      * @param conn la connexion active à la base de données
      */
-    private static void readAllFormation(Connection conn){
+    protected static void readAllFormation(Connection conn){
         ArrayList<Formation> results = AppFormation.requestReadAllFormation(conn);
         for(Formation formation: results) System.out.println(formation);
     }
@@ -78,7 +78,7 @@ public class Visitor {
      *méthode pour afficher à l'utilisateur touts les parcours sur la console.
      * @param conn la connexion active à la base de données
      */
-    private static void readAllParcours(Connection conn){
+    protected static void readAllParcours(Connection conn){
         ArrayList<Parcours> results = AppParcours.requestReadAllParcours(conn);
         for(Parcours parcours: results) System.out.println(parcours);
     }
