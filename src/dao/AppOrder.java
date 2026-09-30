@@ -23,10 +23,9 @@ public class AppOrder {
         Order results = new Order(null, null, null);
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation, date_order FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id JOIN Order_ ON Order.formation_id = Formation.formation_id";
-        sql = sql + " WHERE client_id = (SELECT client_id FROM Client WHERE name_client = ? and firstname_client = ?";
+        sql = sql + " WHERE client_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql);){
-            request.setNString(1, client.getNameClient());
-            request.setNString(2, client.getFirstNameClient());
+            request.setInt(1, client.toInt());
             ResultSet result = request.executeQuery();
             ArrayList<Formation> formations= new ArrayList<Formation>();
             ArrayList<Date> date = new ArrayList<Date>();
@@ -47,4 +46,6 @@ public class AppOrder {
         }
        return results;
     }
+
+
 }
