@@ -6,6 +6,11 @@ import java.util.Scanner;
 import Buisness.Visitor;
 
 public class Main {
+
+    /**
+     * méthode servant à instancier la connexion à la base de donnée, et le scanner . elle servira aussi de point de départ pour l'application  
+     * @param args les arguments indésirables
+     */
     public static void main(String[] args) {
         if( args.length > 0) throw new IllegalArgumentException(" pas d'arguments");
         Scanner input = new Scanner(System.in, System.getProperty("sun.stdin.encoding","CP850"));
