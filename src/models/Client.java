@@ -7,15 +7,17 @@ package models;
 public class Client {
     private String nameClient;
     private String firstNameClient;
+    private int identifiant;
 
     /**
      * constructeur de la classe client
      * @param nameClient
      * @param firstNameClient
      */
-    public Client(String nameClient, String firstNameClient) {
+    public Client(String nameClient, String firstNameClient, int identifiant) {
         this.nameClient = nameClient;
         this.firstNameClient = firstNameClient;
+        this.identifiant = identifiant;
     }
 
     /**    (non-Javadoc)
@@ -35,5 +37,7 @@ public class Client {
         return firstNameClient;
     }
 
-    
+    public int toInt() {
+        return identifiant;
+    }
 }
