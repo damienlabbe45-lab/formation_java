@@ -40,12 +40,12 @@ public class AppClient {
      * @return la classe client de l'utilisateur
      */
     public static Client readClientConnected(Connection conn, int identifiantClient){
-        Client client = new Client(null, null);
+        Client client = new Client(null, null, identifiantClient);
         String sql = "SELECT name_client, firstname_client FROM Client WHERE client_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setInt(1, identifiantClient);
             ResultSet results = request.executeQuery();
-            client = new Client(results.getNString(1), results.getNString(2));
+            client = new Client(results.getNString(1), results.getNString(2), identifiantClient);
         }
         catch(SQLException e){
             System.err.println(e);
