@@ -27,35 +27,44 @@ public class AppFormation{
         ArrayList<Formation> results = new ArrayList<Formation>();
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id";
+        if(!description.equals("") || !nameFormation.equals("") 
+                || price != null 
+            || endDate != null 
+            || beginningDate != null){sql = sql + " WHERE";
+        
+        if(!description.equals(""))sql = sql + " OR description LIKE ?";
+
+        if(!nameFormation.equals(""))sql = sql + " OR name_formation LIKE ?";
+        
+        if(price != null)sql = sql + " OR price <= ?";
+
+        if(endDate != null) sql = sql + " OR end_date == ?";
+
+        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
+}
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             if(!description.equals("") || !nameFormation.equals("") 
                 || price != null 
             || endDate != null 
             || beginningDate != null){
-                int count = 0;
-                sql = sql + " WHERE";
+                int count = 1;
                 if(!description.equals("")){
-                sql = sql + " OR description LIKE ?";
                 request.setString(count, "%" + description);
                 count++;
             }
             if(!nameFormation.equals("")){
-                sql = sql + " OR name_formation LIKE ?";
                 request.setString(count, "%" + nameFormation);
                 count++;
             }
             if(price != null){
-                sql = sql + " OR price <= ?";
                 request.setDouble(count, price);
                 count++;
             }
             if(endDate != null){
-                sql = sql + " OR end_date == ?";
                 request.setDate(count, endDate);
                 count++;
             }
             if(beginningDate != null){
-                sql =sql + " OR beginning_date == ?";
                 request.setDate(count, beginningDate);
                 count++;
             }
@@ -98,34 +107,40 @@ public class AppFormation{
     ){
         ArrayList<Formation> results = new ArrayList<Formation>();
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
-        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE";
+        sql = sql + " ON Formation.formation_id = Be.formation_id WHERE is_dist = ?";
+
+        if(!description.equals(""))sql = sql + " OR description LIKE ?";
+
+        if(!nameFormation.equals(""))sql = sql + " OR name_formation LIKE ?";
+        
+        if(price != null)sql = sql + " OR price <= ?";
+
+        if(endDate != null) sql = sql + " OR end_date == ?";
+
+        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
+
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             int count = 1;
-            sql = sql + " is_dist = ?";
+            
             request.setBoolean(count, isDist);
             count++;
             if(!description.equals("")){
-                sql = sql + " OR description LIKE ?";
                 request.setString(count, "%" + description);
                 count++;
             }
             if(!nameFormation.equals("")){
-                sql = sql + " OR name_formation LIKE ?";
                 request.setString(count, "%" + nameFormation);
                 count++;
             }
             if(price != null){
-                sql = sql + " OR price <= ?";
                 request.setDouble(count, price);
                 count++;
             }
             if(endDate != null){
-                sql = sql + " OR end_date == ?";
                 request.setDate(count, endDate);
                 count++;
             }
             if(beginningDate != null){
-                sql =sql + " OR beginning_date == ?";
                 request.setDate(count, beginningDate);
                 count++;
             }
