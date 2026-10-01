@@ -79,6 +79,12 @@ public class AppClient {
         return director;
     }
 
+    /**
+     * lis le profil du client sous forme de string
+     * @param conn la connexion à la base de donnée
+     * @param client le client
+     * @return le profil sous forme de texte
+     */
     public static String readProfilClient(Connection conn, Client client){
         String result = "";
         String sql = "SELECT concat('votre numéro est ', phonenumber, '.\n Votre addresse mail est ', addressemail, ' .\n votre adresse est '";
@@ -96,6 +102,20 @@ public class AppClient {
         return result;
     }
 
+    /**
+     * créé un client dans la base de donnée et renvoit ce client sous fore d'instance java
+     * @param conn la connexion à la base de donnée
+     * @param name le prénom du futur client
+     * @param firstname le nom du futur client
+     * @param phonenumber le numéro de télé^hone du futur client
+     * @param adressmail l'adresse mail du futur client
+     * @param password le futur mot de passe du client
+     * @param city le nom de la ville du futur client
+     * @param number le numéro de rue du futur client
+     * @param road la rue ou boulevard de la ville du futur client
+     * @param codepostal le codepostal de la ville du futur client
+     * @return le nouveau client instancié
+     */
     public static Client CreateClient(Connection conn,String name, String firstname, String phonenumber, String adressmail, String password, 
         String city, int number, String road, String codepostal){
             Client result = new Client(null, null, -5);
@@ -123,6 +143,12 @@ public class AppClient {
             return result;
         }
 
+    /**
+     * vérifie si une addresse mail est déja présente dans la base de donnée
+     * @param conn la connexion à la base de donnée
+     * @param adressmail l'adresse mail à tester 
+     * @return
+     */
     public static boolean isExistAdressMail(Connection conn, String adressmail){
         boolean result = false;
         String sql ="SELECT EXISTS(SELECT 1 FROM User WHERE addressemail = ?);";
