@@ -82,7 +82,7 @@ public class Utils {
 
 
     /**
-     *  fonction permettant de filtrer selon ce que l'utilisateur veut avec la requête sql.
+     *  fonction permettant de filtrer selon ce que l'utilisateur veut avec la requëte sql
      * @param sql la requête sql de base
      * @param nameFormation le nom de la formation
      * @param description la description de la formation
