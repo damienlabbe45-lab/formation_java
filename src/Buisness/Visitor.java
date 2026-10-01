@@ -121,8 +121,7 @@ public class Visitor {
     public static void interfaceVisitor(Scanner input, Connection conn){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
         message = message + ", 3 quitter cette interface, 4 voir tout les parcours, 5 se connecter? choissisez en tapant le numéro";
-        System.out.println(message);
-        int number = Utils.inputNumber(input);
+        int number = -345666567;
         while (number != 3) {
             if(number == 1)readAllFormation(conn);
             if(number == 2)readFormation(input, conn);
