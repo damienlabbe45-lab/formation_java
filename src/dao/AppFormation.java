@@ -30,18 +30,10 @@ public class AppFormation{
         if(description != null || nameFormation != null 
                 || price != null 
             || endDate != null 
-            || beginningDate != null){sql = sql + " WHERE";
-        
-        if(description != null)sql = sql + " OR description LIKE ?";
-
-        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
-        
-        if(price != null)sql = sql + " OR price <= ?";
-
-        if(endDate != null) sql = sql + " OR end_date == ?";
-
-        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
-}
+            || beginningDate != null){
+                sql = sql + " WHERE";
+                sql = utils.Utils.requestPersonifyFormation(sql, nameFormation, description, endDate, beginningDate, price);
+            }
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             if(description != null || nameFormation != null
                 || price != null 
@@ -109,15 +101,7 @@ public class AppFormation{
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id WHERE is_dist = ?";
 
-        if(description != null)sql = sql + " OR description LIKE ?";
-
-        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
-        
-        if(price != null)sql = sql + " OR price <= ?";
-
-        if(endDate != null) sql = sql + " OR end_date == ?";
-
-        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
+        sql = utils.Utils.requestPersonifyFormation(sql, nameFormation, description, endDate, beginningDate, price);
 
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             int count = 1;
