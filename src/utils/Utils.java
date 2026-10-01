@@ -79,5 +79,20 @@ public class Utils {
         while(day > 0 && day > dayBorn) day = inputNumber(input);
         return Date.valueOf(String.format("%04d-%02d-%02d", year, mouth, day));
     }
+
+    public static String requestPersonifyFormation(String sql, String nameFormation,
+        String description, Date endDate, Date beginningDate, Double price){
+        if(description != null)sql = sql + " OR description LIKE ?";
+
+        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
+        
+        if(price != null)sql = sql + " OR price <= ?";
+
+        if(endDate != null) sql = sql + " OR end_date == ?";
+
+        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
+        
+        return sql;
+    }
     
 }
