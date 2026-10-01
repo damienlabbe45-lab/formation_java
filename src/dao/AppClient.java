@@ -116,7 +116,7 @@ public class AppClient {
      * @param codepostal le codepostal de la ville du futur client
      * @return le nouveau client instancié
      */
-    public static Client CreateClient(Connection conn,String name, String firstname, String phonenumber, String adressmail, String password, 
+    public static Client createClient(Connection conn,String name, String firstname, String phonenumber, String adressmail, String password, 
         String city, int number, String road, String codepostal){
             Client result = new Client(null, null, -5);
             String sql = "INSERT INTO User(addressemail, password, is_director) SELECT ?, ? ,false FROM User; SET @user = LAST_INSERT_ID()";
