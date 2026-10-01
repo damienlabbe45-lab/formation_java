@@ -95,4 +95,33 @@ public class AppClient {
         }
         return result;
     }
+
+    public static Client CreateClient(Connection conn,String name, String firstname, String phonenumber, String adressmail, String password, 
+        String city, int number, String road, String codepostal){
+            Client result = new Client(null, null, -5);
+            String sql = "INSERT INTO User(addressemail, password, is_director) SELECT ?, ? ,false FROM User; SET @user = LAST_INSERT_ID()";
+            sql = sql + "INSERT INTO Adress(city, number_, road, codepostal) VALUES (?, ? , ?); SET @adress = LAST_INSERT_ID()";
+            sql = sql + "INSERT INTO Client(client_id, name_client, firstname_client, phonenumber, adress_id)";
+            sql = sql + " VALUES (user_id, ?, ? , ?) adress_id RETURNING user_id; ";
+            try(PreparedStatement request = conn.prepareStatement(sql)){
+                request.setNString(1, adressmail);
+                request.setNString(2, password);
+                request.setNString(3, city);
+                request.setNString(5, road);
+                request.setNString(6, codepostal);
+                request.setNString(7, name);
+                request.setNString(8, firstname);
+                request.setNString(9, phonenumber);
+                request.setInt(4, number);
+                ResultSet results = request.executeQuery();
+                results.next();
+                result = new Client(name,firstname, results.getInt(1));
+            }
+            catch(SQLException e){
+            System.err.println(e);
+            }
+            return result;
+        }
+
+
 }
