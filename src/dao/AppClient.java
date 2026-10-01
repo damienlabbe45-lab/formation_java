@@ -81,9 +81,9 @@ public class AppClient {
 
     public static String readProfilClient(Connection conn, Client client){
         String result = "";
-        String sql = "SELECT concat('votre numéro est ', phonenumber, '.\n Votre addresse mail est ', adressemail, ' .\n votre adresse est '";
-        sql = sql + ", city, ' ', number, ' ', road, ' ', codepostal, '.\n')";
-        sql = sql + "FROM Client JOIN User client_id = user_id JOIN Adress Adress.adress_id = Client.adress_id WHERE client_id = ?";
+        String sql = "SELECT concat('votre numéro est ', phonenumber, '.\n Votre addresse mail est ', addressemail, ' .\n votre adresse est '";
+        sql = sql + ", city, ' ', number_, ' ', road, ' ', codepostal, '.\n')";
+        sql = sql + "FROM Client JOIN User ON client_id = user_id JOIN Adress ON Adress.adress_id = Client.adress_id WHERE client_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setInt(1, client.toInt());
             ResultSet results = request.executeQuery();
