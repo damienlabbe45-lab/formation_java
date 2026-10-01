@@ -18,19 +18,18 @@ public class Director extends InterfaceClient{
      */
     public static void interfaceVisitor(Scanner input, Connection conn, Client client){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
-        message = message + ", 3 quitter cette interface, 4 voir tout les parcours 5 voir vos commandes? choissisez en tapant le numéro";
-        System.out.println(message);
-        int number = Utils.inputNumber(input);
+        message = message + ", 3 quitter cette interface, 4 voir tout les parcours 5 voir vos commandes, 6 voir votre profil?";
+        message = message + " choissisez en tapant le numéro";
+        int number = -345666567;
         while (number != 3) {
             if(number == 1) readAllFormation(conn);
             if(number == 2) readFormation(input, conn);
             if(number == 4) readAllParcours(conn);
             if(number == 5) readClientOrders(conn, client);
+            if(number == 6) readProfilClient(conn, client);
             System.out.println(message);
             number = Utils.inputNumber(input);
             
         }
-    
     }
-    
 }
