@@ -27,14 +27,14 @@ public class AppFormation{
         ArrayList<Formation> results = new ArrayList<Formation>();
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id";
-        if(!description.equals("") || !nameFormation.equals("") 
+        if(description != null || nameFormation != null 
                 || price != null 
             || endDate != null 
             || beginningDate != null){sql = sql + " WHERE";
         
-        if(!description.equals(""))sql = sql + " OR description LIKE ?";
+        if(description != null)sql = sql + " OR description LIKE ?";
 
-        if(!nameFormation.equals(""))sql = sql + " OR name_formation LIKE ?";
+        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
         
         if(price != null)sql = sql + " OR price <= ?";
 
@@ -43,16 +43,16 @@ public class AppFormation{
         if(beginningDate != null) sql =sql + " OR beginning_date == ?";
 }
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
-            if(!description.equals("") || !nameFormation.equals("") 
+            if(description != null || nameFormation != null
                 || price != null 
             || endDate != null 
             || beginningDate != null){
                 int count = 1;
-                if(!description.equals("")){
+                if(description != null){
                 request.setString(count, "%" + description);
                 count++;
             }
-            if(!nameFormation.equals("")){
+            if(nameFormation != null){
                 request.setString(count, "%" + nameFormation);
                 count++;
             }
@@ -109,9 +109,9 @@ public class AppFormation{
         String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation JOIN Be ";
         sql = sql + " ON Formation.formation_id = Be.formation_id WHERE is_dist = ?";
 
-        if(!description.equals(""))sql = sql + " OR description LIKE ?";
+        if(description != null)sql = sql + " OR description LIKE ?";
 
-        if(!nameFormation.equals(""))sql = sql + " OR name_formation LIKE ?";
+        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
         
         if(price != null)sql = sql + " OR price <= ?";
 
@@ -124,11 +124,11 @@ public class AppFormation{
             
             request.setBoolean(count, isDist);
             count++;
-            if(!description.equals("")){
+            if(description != null){
                 request.setString(count, "%" + description);
                 count++;
             }
-            if(!nameFormation.equals("")){
+            if(nameFormation != null){
                 request.setString(count, "%" + nameFormation);
                 count++;
             }
