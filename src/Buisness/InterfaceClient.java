@@ -10,6 +10,12 @@ import models.Client;
 
 public class InterfaceClient extends Visitor{
 
+
+    /**
+     * affiche le profil du client
+     * @param conn la connexion à la base de donnée
+     * @param client le nom du client
+     */
     protected static void readProfilClient(Connection conn, Client client){
         System.out.println(AppClient.readProfilClient(conn,client));
     }
