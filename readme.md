@@ -15,3 +15,5 @@ les données dans formation.sql ont été inspiré par ma formation ou il y a ce
 
 
 parmis les difficultés, je dirais que savoir ou se trouve le port par défaut de mariadb sur phpmyadmin, comment on créé une date manuellement à partir du scanner de l'utilisateur ainsi que comment on force java à utiliser le bon encodage pour que les données soient prises tout en respectant les accents et autres. mais ils ont été bien résolus. des fois nommer correctement en anglais. enfin penser à faire la javadoc.
+
+enfin pour le lancer, il faut juste éxécuter Main sans utiliser d'arguments et avant créé l'utilisateur Formation et la base de donnée Formation (peut être adapté mais faut remplacer dans Main du coup l'utilisateur et la base de donnée.) enfin il faut obtenir le pilote de la base de donnée et le mettre correctement. le proggramme plante volontairement en cas d'utilisation d'arguments.
