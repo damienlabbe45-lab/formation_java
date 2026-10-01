@@ -21,7 +21,9 @@ public class AppClient {
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setNString(1, identifiant);
             request.setNString(2, password);
-            result = request.executeQuery().getInt(1);
+            ResultSet results = request.executeQuery();
+            results.next();
+            result = results.getInt(1);
         }
         catch(SQLException e){
             result = -10;
@@ -45,6 +47,7 @@ public class AppClient {
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setInt(1, identifiantClient);
             ResultSet results = request.executeQuery();
+            results.next();
             client = new Client(results.getNString(1), results.getNString(2), identifiantClient);
         }
         catch(SQLException e){
@@ -66,8 +69,9 @@ public class AppClient {
         String sql = "SELECT is_director FROM USER WHERE user_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setInt(1, identifiantClient);
-            director = request.executeQuery()
-            .getBoolean(1);
+            ResultSet result = request.executeQuery();
+            result.next();
+            director = result.getBoolean(1);
         }
         catch(SQLException e){
             System.err.println(e);
@@ -82,7 +86,9 @@ public class AppClient {
         sql = sql + "FROM Client JOIN User client_id = user_id JOIN Adress Adress.adress_id = Client.adress_id WHERE client_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql)){
             request.setInt(1, client.toInt());
-            result = request.executeQuery().getNString(1);
+            ResultSet results = request.executeQuery();
+            results.next();
+            result = results.getNString(1);
         }
         catch(SQLException e){
             System.err.println(e);
