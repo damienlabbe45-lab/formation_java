@@ -16,6 +16,8 @@ DROP TABLE IF EXISTS Client;
 
 DROP TABLE IF EXISTS User;
 
+DROP TABLE IF EXISTS Adress;
+
 DROP TABLE IF EXISTS Formation;
 
 -- -----------------------------------------------------------------------------
@@ -71,26 +73,51 @@ CREATE TABLE User(
 INSERT INTO User(addressemail, password, is_director) VALUES
 ("animal.tsuky@anais.fr", "ouafouaf", false),
 ("ebbal.neimad67890@dujargon.fr", "1234567890", false),
+("hi.han@animal.fr", "hihan", false),
+("corren.kou.fr", "qgfvedvehbzhqq.87è&&DHFgùùhshd$*sjgFKSBVfedb2345678svd",true),
 ("boulive.meinardeis09@heho.fr", "hbfgvtedghsdvdehgriehfgnfjdgdjzà988,jfjghà&&dhdbz!db", true);
 
+	-- -----------------------------------------------------------------------------
+-- - Construction de la table Adress                  ---
+-- -----------------------------------------------------------------------------
+
+CREATE TABLE Adress(
+	adress_id INT PRIMARY KEY AUTO_INCREMENT,
+	city VARCHAR(56),
+	number_ smallint,
+	road VARCHAR(67), 
+	codepostal VARCHAR(5)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO Adress(city, number_, road, codepostal) VALUES
+("TOULOUSE", 34,"rue des primates" , 31700),
+("Aubin", 456, "rue des lourdeaux", 34098),
+("Arnarque-la-poste", 23, "rue des pigeons", 56342),
+("Auberville", 34 , "rue de l'empire", 88098),
+("Paris", 12, "Gustave Eiffel",75400);
 
 	-- -----------------------------------------------------------------------------
 -- - Construction de la table Client                  ---
 -- -----------------------------------------------------------------------------
+
 
 CREATE TABLE Client(
 	client_id INT PRIMARY KEY,
 	name_client VARCHAR(50) NOT NULL,
 	firstname_client VARCHAR(50) NOT NULL,
 	phonenumber VARCHAR(18) DEFAULT 0,
-	CONSTRAINT fk_client_id_user FOREIGN KEY(client_id) REFERENCES User(user_id)
+	adress_id INT,
+	CONSTRAINT fk_client_id_user FOREIGN KEY(client_id) REFERENCES User(user_id),
+	CONSTRAINT fk_adress_id_adress FOREIGN KEY(adress_id) REFERENCES Adress(adress_id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT INTO Client(client_id, name_client, firstname_client, phonenumber) VALUES
-(1, "Tsuky", "Animal", default),
-(2, "Neimad", "Ebbal", "345676543445654565"),
-(3, "Meinardeis", "Boulive", default);
+INSERT INTO Client(client_id, name_client, firstname_client, phonenumber, adress_id) VALUES
+(1, "Tsuky", "Animal", default,1),
+(2, "Neimad", "Ebbal", "345676543445654565",2),
+(4, "corren", "kou", "3345654345676565",4),
+(3, "Ane", "Animal", default, 3),
+(5, "Meinardeis", "Boulive", default,5);
 
 	-- -----------------------------------------------------------------------------
 -- - Construction de la table Parcours                  ---
