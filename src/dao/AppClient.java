@@ -74,4 +74,19 @@ public class AppClient {
         }
         return director;
     }
+
+    public static String readProfilClient(Connection conn, Client client){
+        String result = "";
+        String sql = "SELECT concat('votre numéro est ', phonenumber, '.\n Votre addresse mail est ', adressemail, ' .\n votre adresse est '";
+        sql = sql + ", city, ' ', number, ' ', road, ' ', codepostal, '.\n')";
+        sql = sql + "FROM Client JOIN User client_id = user_id JOIN Adress Adress.adress_id = Client.adress_id WHERE client_id = ?";
+        try (PreparedStatement request = conn.prepareStatement(sql)){
+            request.setInt(1, client.toInt());
+            result = request.executeQuery().getNString(1);
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        return result;
+    }
 }
