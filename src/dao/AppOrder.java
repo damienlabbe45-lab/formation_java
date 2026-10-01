@@ -21,8 +21,9 @@ public class AppOrder {
      */
     public static Order requestReadClientOrder(Connection conn, Client client){
         Order results = new Order(null, null, null);
-        String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation, date_order FROM Formation JOIN Be ";
-        sql = sql + " ON Formation.formation_id = Be.formation_id JOIN Order_ ON Order_.formation_id = Formation.formation_id";
+        String sql = "SELECT description, price, Order_.is_dist, end_date, beginning_date, name_formation, date_order FROM Formation JOIN Be ";
+        sql = sql + " ON Formation.formation_id = Be.formation_id JOIN Order_ ON Order_.formation_id = Formation.formation_id AND ";
+        sql = sql + "Order_.session_id = Be.session_id AND Order_.is_dist = Be.is_dist";
         sql = sql + " WHERE client_id = ?";
         try (PreparedStatement request = conn.prepareStatement(sql);){
             request.setInt(1, client.toInt());
