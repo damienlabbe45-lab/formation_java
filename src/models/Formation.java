@@ -42,7 +42,7 @@ public class Formation {
      */
     @Override    
     public String toString(){
-        String message = "La fomation " + nameFormation + " commence le " + beginningDate + " et finit le " + endDate + ". Elle est ";
+        String message = "La formation " + nameFormation + " commence le " + beginningDate + " et finit le " + endDate + ". Elle est ";
         if(isDist)  message = message + "en distanciel."; else message = message + "en présentielle." ;
         message = message + " Elle coûte " + price + " euros";
         return message + ". " + description + "\n";
