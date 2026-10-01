@@ -123,5 +123,19 @@ public class AppClient {
             return result;
         }
 
+    public static boolean isExistAdressMail(Connection conn, String adressmail){
+        boolean result = false;
+        String sql ="SELECT EXISTS(SELECT 1 FROM User WHERE addressemail = ?);";
+        try(PreparedStatement request = conn.prepareStatement(sql)){
+                request.setNString(1, adressmail);
+                ResultSet results = request.executeQuery();
+                results.next();
+                result = results.getBoolean(1);
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        return result;
+    }
 
 }
