@@ -127,10 +127,9 @@ public class Visitor {
             if(number == 1)readAllFormation(conn);
             if(number == 2)readFormation(input, conn);
             if(number == 4) readAllParcours(conn);
-            if(number == 5 && connected(conn, input)) break;
             System.out.println(message);
             number = Utils.inputNumber(input);
-            
+            if(number == 5 && connected(conn, input)) number = 3;
         }
     }
 }
