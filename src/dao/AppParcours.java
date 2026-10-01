@@ -20,8 +20,8 @@ public class AppParcours {
      */
     public static ArrayList<Parcours> requestReadAllParcours(Connection conn){
         ArrayList<Parcours> results = new ArrayList<Parcours>();
-        String sql = "SELECT description, price, is_dist, end_date, beginning_date, name_formation, formation_incluant FROM Formation";
-        sql = sql + " JOIN Parcours Formation_id = formation_incluant JOIN Be  ON formation_incluant = Be.formation_id";
+        String sql = "SELECT DISTINCT description, price, is_dist, end_date, beginning_date, name_formation, formation_incluant FROM Formation";
+        sql = sql + " JOIN Parcours ON Formation_id = formation_incluant JOIN Be  ON formation_incluant = Be.formation_id";
         try (ResultSet result = conn.prepareStatement(sql).executeQuery();){
            while(result.next()) {
             Formation parcours = new Formation(result.getNString(1), 
@@ -32,7 +32,7 @@ public class AppParcours {
                     result.getNString(6));
             
             String sql2 = "SELECT description, price, is_dist, end_date, beginning_date, name_formation FROM Formation";
-            sql2 = sql2 + " JOIN Parcours Formation_id = formation_incluse JOIN Be  ON formation_incluse = Be.formation_id";
+            sql2 = sql2 + " JOIN Parcours ON Formation_id = formation_incluse JOIN Be ON formation_incluse = Be.formation_id";
             sql2 = sql2 + " WHERE formation_incluant = ?";
             
             ArrayList<Formation> resultsFormation = new ArrayList<Formation>();
