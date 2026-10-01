@@ -46,12 +46,12 @@ public class Visitor {
             System.out.println("mettez ce que vous voulez comme prix");
             price = Utils.inputDouble(input);
         }
-        System.out.println(" si vous voulez filtrer sur la date de fin de la formation");
+        System.out.println(" si vous voulez filtrer sur la date de fin de la formation tapez true sinon tapez false");
         if(Utils.inputBoolean(input)){
             System.out.println("mettez ce que vous voulez comme date");
             endDate = Utils.inputDate(input);
         }
-        System.out.println(" si vous voulez filtrer sur la date de début de la formation");
+        System.out.println(" si vous voulez filtrer sur la date de début de la formation tapez true sinon tapez false");
         if(Utils.inputBoolean(input)){
             System.out.println("mettez ce que vous voulez comme date");
             beginningDate = Utils.inputDate(input);
