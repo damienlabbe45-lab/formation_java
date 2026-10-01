@@ -80,6 +80,17 @@ public class Utils {
         return Date.valueOf(String.format("%04d-%02d-%02d", year, mouth, day));
     }
 
+
+    /**
+     *  fonction permettant de filtrer selon ce que l'utilisateur veut avec la requête sql.
+     * @param sql la requête sql de base
+     * @param nameFormation le nom de la formation
+     * @param description la description de la formation
+     * @param endDate la date de fin de la formation
+     * @param beginningDate la date de début de la formation
+     * @param price le prix de la formation
+     * @return la requête sql sous forme de string complète
+     */
     public static String requestPersonifyFormation(String sql, String nameFormation,
         String description, Date endDate, Date beginningDate, Double price){
         if(description != null)sql = sql + " OR description LIKE ?";
