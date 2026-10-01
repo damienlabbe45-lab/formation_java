@@ -6,7 +6,7 @@ import java.util.Scanner;
 import utils.Utils;
 import models.Client;
 
-public class Director extends  InterfaceClient{
+public class Director extends InterfaceClient{
     
     
     /**
