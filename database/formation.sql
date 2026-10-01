@@ -5,10 +5,9 @@ CREATE DATABASE IF NOT EXISTS Formation  DEFAULT CHARACTER SET utf8mb4 COLLATE u
 
 
 USE Formation;
+DROP TABLE IF EXISTS Order_;
 
 DROP TABLE IF EXISTS Be;
-
-DROP TABLE IF EXISTS Order_;
 
 DROP TABLE IF EXISTS Parcours;
 
@@ -141,25 +140,6 @@ INSERT INTO Parcours(formation_incluant, formation_incluse) VALUES
 	(10, 9);
 
 
-	-- -----------------------------------------------------------------------------
--- - Construction de la table Order_                ---
--- -----------------------------------------------------------------------------
-CREATE TABLE Order_(
-	formation_id int NOT NULL, 
-	client_id int NOT NULL,
-	date_order DATE NOT NULL,
-	PRIMARY KEY(formation_id, client_id),
-	CONSTRAINT fk_Parcours_formation_id_formation_id FOREIGN KEY(formation_id) REFERENCES Formation(formation_id),
-	CONSTRAINT fk_Parcours_client_id_client_id FOREIGN KEY(client_id) REFERENCES Client(client_id)
-	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-INSERT INTO Order_(formation_id, client_id, date_order)  VALUES
-	(1, 3, CURRENT_DATE),
-	(10, 1, CURRENT_DATE),
-	(10, 2, CURRENT_DATE),
-	(11, 1, CURRENT_DATE),
-	(1, 1, '2025-12-01');
 
 	-- -----------------------------------------------------------------------------
 -- - Construction de la table Be                ---
@@ -205,3 +185,26 @@ INSERT INTO Be(formation_id, is_dist, session_id, price, end_date, beginning_dat
 	(20, true, 1 ,76.12,'2026-11-07', CURRENT_DATE),
 	(21, true, 1 ,34.12,'2026-11-07', CURRENT_DATE),
 	(22, true, 1 ,4576.12,'2026-11-07', CURRENT_DATE);
+
+
+	-- -----------------------------------------------------------------------------
+-- - Construction de la table Order_                ---
+-- -----------------------------------------------------------------------------
+CREATE TABLE Order_(
+	formation_id int NOT NULL, 
+	client_id int NOT NULL,
+	session_id int NOT NULL,
+	is_dist boolean NOT NULL,
+	date_order DATE NOT NULL,
+	PRIMARY KEY(formation_id, client_id, session_id,is_dist),
+	CONSTRAINT fk_Order_client_id_client_id FOREIGN KEY(client_id) REFERENCES Client(client_id),
+	CONSTRAINT fk_Order_Be FOREIGN KEY(formation_id, is_dist, session_id) REFERENCES Be(formation_id, is_dist, session_id)
+	) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+INSERT INTO Order_(formation_id, client_id, date_order, session_id, is_dist)  VALUES
+	(1, 3, CURRENT_DATE,3, true),
+	(10, 1, CURRENT_DATE,3, false),
+	(10, 2, CURRENT_DATE,3, false),
+	(11, 1, CURRENT_DATE,1, false),
+	(1, 1, '2025-12-01',2,true);
