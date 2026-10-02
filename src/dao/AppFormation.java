@@ -34,7 +34,7 @@ public class AppFormation{
 
 		try (PreparedStatement request = conn.prepareStatement(sql);) {
             if(sql.contains("?")){
-                int count = 0;
+                int count = 1;
             if( isDist != null)request.setBoolean(count++, isDist);
 
             if(description != null)request.setString(count++, "%" + description);
@@ -54,7 +54,8 @@ public class AppFormation{
            if (!result.next()) {
     System.out.println("Il n'y a aucun résultat.\n");
     results = AppFormation.requestReadAllFormation(conn);
-    do {
+            }
+            else{do {
         results.add(new Formation(
             result.getNString(1), 
             result.getDouble(2), 
@@ -65,6 +66,7 @@ public class AppFormation{
         ));
     } while (result.next());
 }
+
         } catch (SQLException e) {
             System.err.println(e);
         }
