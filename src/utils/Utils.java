@@ -44,8 +44,8 @@ public class Utils {
      * @return String
      */
     public static String input(Scanner input , List<String> words){
-        String result = input.next();
-        while(!words.contains(result)) result = input.next();
+        String result = input.nextLine();
+        while(!words.contains(result)) result = input.nextLine();
         return result;
     }
 
@@ -107,11 +107,11 @@ public class Utils {
 
         if(nameFormation != null)sql = requestPersonifyAnd(sql) + "name_formation LIKE ?";
         
-        if(price != null)sql = requestPersonifyAnd(sql) + "price <= ?";
+        if(price != null)sql = requestPersonifyAnd(sql) + " price <= ?";
 
-        if(endDate != null) sql = requestPersonifyAnd(sql) + "end_date == ?";
+        if(endDate != null) sql = requestPersonifyAnd(sql) + " end_date = ?";
 
-        if(beginningDate != null) sql =requestPersonifyAnd(sql) + "beginning_date == ?";
+        if(beginningDate != null) sql =requestPersonifyAnd(sql) + " beginning_date = ?";
             }
         return sql;
     }
