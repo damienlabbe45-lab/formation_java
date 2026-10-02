@@ -17,12 +17,20 @@ import utils.Utils;
 
 public class Visitor {
 
+    protected Connection conn;
+    protected Scanner input;
+
+    
+
+        public Visitor(Connection conn, Scanner input) {
+        this.conn = conn;
+        this.input = input;
+    }
+
         /**
      *méthode pour afficher à l'utilisateur les formations sur la console et lui permettre de filtrer selon ses propres critères.
-     * @param input scanner instancié
-     * @param conn la connexion active à la base de données
      */
-    protected static void readFormation(Scanner input, Connection conn){
+    protected void readFormation(){
         System.out.println("Voulez-vous filtrer sur le présentiel, le distanciel ou pas du tout?");
         String resultIsDist = Utils.input(input,new ArrayList <>(Arrays.asList("présentiel", "distanciel", "pas du tout")));
         String name = null;
@@ -30,7 +38,7 @@ public class Visitor {
         Double price = null;
         Date endDate = null;
         Date beginningDate = null;
-        boolean isDist;
+        Boolean isDist = null;
         System.out.println(" si vous voulez filtrer sur le nom de la formation tapez true sinon tapez false");
         if(Utils.inputBoolean(input)){
             System.out.println("mettez ce que vous voulez comme début de nom");
@@ -56,31 +64,23 @@ public class Visitor {
             System.out.println("mettez ce que vous voulez comme date");
             beginningDate = Utils.inputDate(input);
         }
-        ArrayList <Formation> results;
-        if(!resultIsDist.contains("pas du tout")){
-            isDist = resultIsDist.contains("distanciel");
-            results = AppFormation.requestReadFormation(conn, name,description,isDist, endDate,beginningDate,price);
-        }
-        else{
-            results = AppFormation.requestReadFormation(conn, name,description, endDate,beginningDate,price);
-        }
+        if(!resultIsDist.contains("pas du tout"))isDist = resultIsDist.contains("distanciel");
+        ArrayList <Formation> results = AppFormation.requestReadFormation(conn, name,description,isDist, endDate,beginningDate,price);
         for(Formation formation: results) System.out.println(formation);
     }
 
     /**
      *méthode pour afficher à l'utilisateur toutes les formations sur la console.
-     * @param conn la connexion active à la base de données
      */
-    protected static void readAllFormation(Connection conn){
+    protected void readAllFormation(){
         ArrayList<Formation> results = AppFormation.requestReadAllFormation(conn);
         for(Formation formation: results) System.out.println(formation);
     }
 
     /**
      *méthode pour afficher à l'utilisateur touts les parcours sur la console.
-     * @param conn la connexion active à la base de données
      */
-    protected static void readAllParcours(Connection conn){
+    protected void readAllParcours(){
         ArrayList<Parcours> results = AppParcours.requestReadAllParcours(conn);
         for(Parcours parcours: results) System.out.println(parcours);
     }
@@ -90,7 +90,7 @@ public class Visitor {
      * @param input scanner instancié
      * @param conn la connexion active à la base de données
      */
-    private static boolean connected(Connection conn , Scanner input){
+    private boolean connected(){
         System.out.println("Veillez taper votre identifiant");
         String addressemail = input.next();
         System.out.println("Veillez taper votre mot de passe");
@@ -102,12 +102,14 @@ public class Visitor {
         }
         Client client = AppClient.readClientConnected(conn, identifiant);
         System.out.println("Bienvenue cher " + client);
+        InterfaceClient client1;
         if(AppClient.isDirector(conn, identifiant)){
-            Director.interfaceVisitor(input, conn, client);
+            client1 = new Director(conn, input, client);
         }
         else{
-            InterfaceClient.interfaceVisitor(input, conn, client);
+        client1 = new InterfaceClient(conn, input, client);
         }
+        client1.interfaceVisitor();
         return true;
 
     }
@@ -118,17 +120,17 @@ public class Visitor {
      * @param input scanner instancié
      * @param conn la connexion active à la base de données
      */
-    public static void interfaceVisitor(Scanner input, Connection conn){
+    public void interfaceVisitor(){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
         message = message + ", 3 quitter cette interface, 4 voir tout les parcours, 5 se connecter? choissisez en tapant le numéro";
         int number = -345666567;
         while (number != 3) {
-            if(number == 1)readAllFormation(conn);
-            if(number == 2)readFormation(input, conn);
-            if(number == 4) readAllParcours(conn);
+            if(number == 1)readAllFormation();
+            if(number == 2)readFormation();
+            if(number == 4) readAllParcours();
             System.out.println(message);
             number = Utils.inputNumber(input);
-            if(number == 5 && connected(conn, input)) number = 3;
+            if(number == 5 && connected()) number = 3;
         }
     }
 }
