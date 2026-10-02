@@ -92,17 +92,33 @@ public class Utils {
      * @return la requête sql sous forme de string complète
      */
     public static String requestPersonifyFormation(String sql, String nameFormation,
-        String description, Date endDate, Date beginningDate, Double price){
-        if(description != null)sql = sql + " OR description LIKE ?";
+        String description,Boolean isDist, Date endDate, Date beginningDate, Double price){
+        if(isDist != null || 
+            description != null || 
+            nameFormation != null || 
+            price != null ||
+            endDate != null ||
+            beginningDate != null){
+        sql = sql + " WHERE";
 
-        if(nameFormation != null)sql = sql + " OR name_formation LIKE ?";
+        if(isDist != null) sql = sql +  " is_dist = ?";
         
-        if(price != null)sql = sql + " OR price <= ?";
+        if(description != null)sql = requestPersonifyAnd(sql) + " description LIKE ?";
 
-        if(endDate != null) sql = sql + " OR end_date == ?";
-
-        if(beginningDate != null) sql =sql + " OR beginning_date == ?";
+        if(nameFormation != null)sql = requestPersonifyAnd(sql) + "name_formation LIKE ?";
         
+        if(price != null)sql = requestPersonifyAnd(sql) + "price <= ?";
+
+        if(endDate != null) sql = requestPersonifyAnd(sql) + "end_date == ?";
+
+        if(beginningDate != null) sql =requestPersonifyAnd(sql) + "beginning_date == ?";
+            }
+        return sql;
+    }
+
+    public static String  requestPersonifyAnd(String sql){
+        if(sql.contains("?")) sql = sql + " AND";
+
         return sql;
     }
     
