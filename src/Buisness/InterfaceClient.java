@@ -10,43 +10,44 @@ import models.Client;
 
 public class InterfaceClient extends Visitor{
 
+    protected Client client;
+
+    
+    public InterfaceClient(Connection conn, Scanner input, Client client) {
+        super(conn, input);
+        this.client = client;
+    }
 
     /**
      * affiche le profil du client
-     * @param conn la connexion à la base de donnée
-     * @param client le nom du client
      */
-    protected static void readProfilClient(Connection conn, Client client){
+    protected void readProfilClient(){
         System.out.println(AppClient.readProfilClient(conn,client));
     }
 
     /**
      * affiche la commande du client
-     * @param conn
-     * @param client
      */
-    protected static void readClientOrders(Connection conn, Client client){
+    protected void readClientOrders(){
         System.out.println(AppOrder.requestReadClientOrder(conn, client));
     }
 
     /**
      * méthode d'interface utilisateur pour appeler de façon plus simple les méthodes de la classe et de celles qui en hériteront.
      * à faire surcharger obligatoirement si on veut rajouter ou dimunier des méthodes dans cette interface.
-     * @param input scanner instancié
-     * @param conn la connexion active à la base de données
-     * @param client le nom et prénom de l'utilisateur
      */
-    public static void interfaceVisitor(Scanner input, Connection conn, Client client){
+    @Override 
+    public void interfaceVisitor(){
         String message = "voulez-vous 1 - voir toutes les formations, 2 voir les formations mais avec vos crirères";
         message = message + ", 3 quitter cette interface, 4 voir tout les parcours 5 voir vos commandes, 6 voir votre profil?";
         message = message + " choissisez en tapant le numéro";
         int number = -345666567;
         while (number != 3) {
-            if(number == 1) readAllFormation(conn);
-            if(number == 2) readFormation(input, conn);
-            if(number == 4) readAllParcours(conn);
-            if(number == 5) readClientOrders(conn, client);
-            if(number == 6) readProfilClient(conn, client);
+            if(number == 1) readAllFormation();
+            if(number == 2) readFormation();
+            if(number == 4) readAllParcours();
+            if(number == 5) readClientOrders();
+            if(number == 6) readProfilClient();
             System.out.println(message);
             number = Utils.inputNumber(input);
             
