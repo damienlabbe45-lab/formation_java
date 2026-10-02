@@ -19,7 +19,8 @@ public class Main {
             "jdbc:mariadb://localhost:3306/Formation?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true",
                 "Formation", "K05lust-CQO6mogq")) {
             App.fileRequest(conn);
-            Visitor.interfaceVisitor(input, conn);
+            Visitor visitor = new Visitor(conn, input);
+            visitor.interfaceVisitor();
         } catch (SQLException e) {
             System.err.println("une erreur est survenue. \n");
             /**il serait possible le println(e) par un envoi dans un fichier de log .log*/
